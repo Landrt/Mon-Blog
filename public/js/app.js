@@ -29,9 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const articleCount = document.getElementById('articleCount');
     const statArticleTotal = document.getElementById('statArticleTotal');
 
-    // Load articles on initialize
-    fetchArticles();
-
     // =============== EVENTS =============== //
 
     // Search with debounce
@@ -89,21 +86,28 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
+            let res;
             if (id) {
                 // UPDATE
-                await fetch(`${API_URL}/${id}`, {
+                res = await fetch(`${API_URL}/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
             } else {
                 // CREATE
-                await fetch(API_URL, {
+                res = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
             }
+            
+            if (!res.ok) {
+                 const errData = await res.json().catch(() => ({}));
+                 throw new Error(errData.message || "Erreur lors de la sauvegarde.");
+            }
+            
             closeModal();
             // Automatically clear filters to show the newly added/edited post clearly
             categoryFilter.value = "";
@@ -111,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchArticles(); 
         } catch (error) {
             console.error("Erreur de sauvegarde:", error);
-            alert("Une erreur s'est produite lors de l'enregistrement.");
+            alert("Une erreur s'est produite lors de l'enregistrement: " + error.message);
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
@@ -256,4 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
             articlesContainer.appendChild(row);
         });
     }
+
+    // Load articles on initialize now that functions are defined
+    fetchArticles();
 });

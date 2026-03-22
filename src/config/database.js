@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const dbPath = process.env.NODE_ENV === 'production'
+const dbPath = (process.env.NODE_ENV === 'production' || process.env.NETLIFY === 'true' || process.env.NETLIFY)
   ? '/tmp/database.sqlite'
   : path.resolve(__dirname, '../../', process.env.DB_FILE || 'database.sqlite');
 
