@@ -1,0 +1,22 @@
+[build]
+  functions = "netlify/functions"
+  publish = "public"
+
+# Redirect API calls to the serverless function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/api/:splat"
+  status = 200
+
+# Redirect Swagger documentation calls to the serverless function
+[[redirects]]
+  from = "/api-docs/*"
+  to = "/.netlify/functions/api/api-docs/:splat"
+  status = 200
+
+# Fallback to serve index.html for frontend routing or generic unknown paths 
+# (Netlify handles static files in 'publish' natively first)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
