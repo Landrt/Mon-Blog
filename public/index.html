@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The @rtist Blog</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header class="glass-header">
+        <div class="header-container">
+            <h1 class="logo">The <span class="highlight">@rtist</span> Blog</h1>
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Rechercher un article...">
+            </div>
+            <button id="newPostBtn" class="btn primary-btn"><i class="fa-solid fa-plus"></i> Nouvel Article</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- New / Edit Post Modal -->
+        <div id="postModal" class="modal hidden">
+            <div class="modal-content glass-panel">
+                <div class="modal-header">
+                    <h2 id="modalTitle">Créer un Article</h2>
+                    <button id="closeModalBtn" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form id="articleForm">
+                    <input type="hidden" id="articleId">
+                    <div class="form-group">
+                        <label for="title">Titre</label>
+                        <input type="text" id="title" required placeholder="Saisir le titre...">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="author">Auteur</label>
+                            <input type="text" id="author" required placeholder="Nom de l'auteur">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Catégorie</label>
+                            <input type="text" id="category" placeholder="Ex: Art, Tech...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tags">Tags (séparés par des virgules)</label>
+                        <input type="text" id="tags" placeholder="css, web, design...">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Contenu</label>
+                        <textarea id="content" rows="6" required placeholder="Que souhaitez-vous partager ?"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary-btn" id="submitBtn">Publier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Feed Section -->
+        <section class="feed">
+            <div class="section-header">
+                <h2>Flux d'articles</h2>
+                <div id="loader" class="loader hidden"></div>
+            </div>
+            <div id="articlesContainer" class="articles-grid">
+                <!-- Articles will be injected here via JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
